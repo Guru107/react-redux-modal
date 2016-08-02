@@ -9,6 +9,8 @@ class Modal extends Component {
   }
 
   handleOnOutsideClick(e) {
+    e.stopPropagation();
+    e.preventDefault();
     if (this.props.options.closeOnOutsideClick && !this.isChildOf(e.target, this.refs.modalContent) || false) {
       this.props.removeModal(this.props.id);
     }
