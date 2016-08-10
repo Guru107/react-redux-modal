@@ -1,7 +1,6 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {EE} from './emitter';
 import * as actions from './redux';
 import Modal from './Modal';
 
@@ -9,16 +8,6 @@ import Modal from './Modal';
 class ReduxModal extends Component {
   constructor(props) {
     super(props);
-  }
-
-  componentDidMount() {
-    EE.on('add/modal', obj => this.props.addModal(obj));
-    EE.on('clear/all', this.props.clearAll);
-  }
-
-  componentWillUnmount() {
-    EE.off('add/modal');
-    EE.off('clear/all');
   }
 
   render() {

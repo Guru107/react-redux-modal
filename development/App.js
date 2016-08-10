@@ -4,9 +4,8 @@ import './index.less';
 import './../src/less/index.less';
 import React, {Component, PropTypes} from 'react';
 import {Provider} from 'react-redux';
-import ReduxModal, {modal} from './../src/';
+import ReduxModal, {actions} from './../src/';
 import DevTools from './containers/DevTools';
-import largeText from './largetext';
 import config from './../config';
 
 import loremIpsum from 'lorem-ipsum';
@@ -31,22 +30,6 @@ class myLargeModalComponent extends Component {
   }
 }
 
-class modalComponent extends Component {
-  static displayName = 'MySUperModal';
-
-  render() {
-    return <p>{largeText}</p>;
-  }
-}
-
-class myModalComponent extends Component {
-  static displayName = 'MySUperModal';
-
-  render() {
-    return <p>:D {largeText}</p>;
-  }
-}
-
 export default class App extends Component {
   static displayName = 'ReduxModalDev';
 
@@ -60,33 +43,13 @@ export default class App extends Component {
   }
 
   addModalLarge() {
-    modal.add(myLargeModalComponent, {
-      title: 'This one there is no close botton.',
-      size: 'large',
-      hideCloseButton: true
-    });
-  }
-
-  addModalMedium() {
-    modal.add(myModalComponent, {
-      title: 'Time to get some food',
-      size: 'medium'
-    });
-  }
-
-  addModalSmall() {
-    modal.add(modalComponent, {
-      title: 'You got it',
-      size: 'small'
-    });
-  }
-
-  addOutsideClickCloseModal() {
-    modal.add(modalComponent, {
-      title: 'You got it',
-      size: 'small',
-      closeOnOutsideClick: true
-    });
+    this.props.store.dispatch(actions.addModal({
+      component: myLargeModalComponent,
+      options: {
+        title: 'This one there is no close botton.',
+        size: 'large',
+        hideCloseButton: true}
+    }));
   }
 
   renderDev() {
@@ -103,17 +66,6 @@ export default class App extends Component {
             <button
               className="btn btn-primary"
               onClick={this.addModalLarge.bind(this)}>add large modal</button>
-            <button
-              className="btn btn-primary"
-              onClick={this.addModalMedium.bind(this)}>add medium modal</button>
-
-            <button
-              className="btn btn-primary"
-              onClick={this.addModalSmall.bind(this)}>add small modal</button>
-
-            <button
-              className="btn btn-primary"
-              onClick={this.addOutsideClickCloseModal.bind(this)}>add "click outside to close" modal</button>
           </div>
           <ReduxModal />
           {this.renderDev()}

@@ -127,7 +127,6 @@
   },
   "dependencies": {
     "classnames": "^2.2.3",
-    "eventemitter3": "^1.1.1",
     "uuid": "^2.0.1"
   }
 }
